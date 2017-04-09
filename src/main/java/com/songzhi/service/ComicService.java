@@ -1,6 +1,5 @@
 package com.songzhi.service;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,11 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.songzhi.dao.CatalogDao;
 import com.songzhi.dao.ComicDao;
 import com.songzhi.dao.ComicPicDao;
+import com.songzhi.model.Catalog;
 import com.songzhi.model.Comic;
 import com.songzhi.model.ComicPic;
 
@@ -26,6 +29,9 @@ public class ComicService {
 	
 	@Autowired
 	private ComicPicDao comicPicDao;
+	
+	@Autowired
+	private CatalogDao catalogDao;
 
 	public String add(Comic comic) {
 		comicDao.save(comic);
@@ -94,5 +100,19 @@ public class ComicService {
 			log.error(e.getMessage());
 		}
 		return flag;
+	}
+	
+	public List<Catalog> findTopCatalogs() {
+		List<Catalog> catalogs = this.catalogDao.findByLevel(1);
+		return catalogs;
+	}
+
+	public List<Catalog> findCatalogsByPid(int pid) {
+		List<Catalog> catalogs = this.catalogDao.findByPidOrderByIdAsc(pid);
+		return catalogs;
+	}
+	public List<Catalog> findAllCatalogs() {
+		List<Catalog> catalogs = this.catalogDao.findAll(new Sort(Direction.ASC, "id"));
+		return catalogs;
 	}
 }

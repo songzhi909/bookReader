@@ -2,7 +2,6 @@ package com.songzhi.crawler;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -11,8 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,13 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import com.songzhi.conf.SpringContent;
 import com.songzhi.model.Comic;
 import com.songzhi.model.ComicPic;
 import com.songzhi.service.ComicService;
 import com.songzhi.utils.DynamicIp;
-import com.songzhi.utils.FileUtils;
-import com.songzhi.utils.URLAvailability;
 
 /**
  * 漫画爬取器
@@ -48,7 +42,7 @@ public class ComicCrawler2 {
 	Queue<String> hitUrls = new ConcurrentLinkedQueue<String>();
 
 	/** 最大线程数 */
-	private int maxThreadNum = 10;
+//	private int maxThreadNum = 10;
 	/** 连接超时时间 */
 	private int timeout = 10000;
 	/** 代理IP */
@@ -59,13 +53,13 @@ public class ComicCrawler2 {
 	private ComicService comicService;
 
 	public ComicCrawler2() {
-		proxyIps = DynamicIp.getIps();
+//		proxyIps = DynamicIp.getIps();
 		proxyIpIndex = 0;
 	}
 
 	public ComicCrawler2(String url) {
 		searchUrls.add(url);
-		proxyIps = DynamicIp.getIps();
+//		proxyIps = DynamicIp.getIps();
 		proxyIpIndex = 0;
 	}
 
@@ -141,7 +135,7 @@ public class ComicCrawler2 {
 			String lastPicUrl = getPicUrl(lastTargetUrl);
 
 			String prefix = firstPicUrl.substring(0, firstPicUrl.lastIndexOf("/") + 1);
-			String suffix = firstPicUrl.substring(firstPicUrl.lastIndexOf("."));
+//			String suffix = firstPicUrl.substring(firstPicUrl.lastIndexOf("."));
 
 			int from = Integer.parseInt(firstPicUrl.substring(firstPicUrl.lastIndexOf("/") + 1).split("\\.")[0]);
 			int end = Integer.parseInt(lastPicUrl.substring(lastPicUrl.lastIndexOf("/") + 1).split("\\.")[0]);
@@ -190,7 +184,7 @@ public class ComicCrawler2 {
 	 * 
 	 * @param url
 	 */
-	private void download(String url) {
+	/*private void download(String url) {
 		try {
 			Document doc = connect(url);
 			String pic = doc.select("#picarea").first().absUrl("src");
@@ -214,7 +208,7 @@ public class ComicCrawler2 {
 
 	}
 
-	private String filePath;
+	private String filePath;*/
 
 	private Document connect(String url) {
 		// 设置代理

@@ -94,7 +94,7 @@ http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
     <property name="entityManagerFactory" ref="entityManagerFactory"></property>
   </bean>
 
-  <jpa:repositories base-package="com.songzhi"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+  <jpa:repositories base-package="com.songzhi.dao"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 
   <!-- 注解方式配置事物 -->
   <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
