@@ -1,8 +1,13 @@
 package com.songzhi.service;
 
+import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +19,8 @@ import com.songzhi.model.ComicPic;
 @Service
 @Transactional
 public class ComicService {
-
+	final static Logger log = LoggerFactory.getLogger(ComicService.class);
+	
 	@Autowired
 	private ComicDao comicDao;
 	
@@ -24,6 +30,10 @@ public class ComicService {
 	public String add(Comic comic) {
 		comicDao.save(comic);
 		return "添加成功！";
+	}
+	
+	public Page<Comic> findComicsByPage(int page, int size) {
+		return comicDao.findByFlagOrderByIdAsc(0, new PageRequest(page, size));
 	}
 	
 	public String addPic(ComicPic comicPic) {
@@ -45,5 +55,44 @@ public class ComicService {
 	
 	public Comic getOneComic(int id) { 
 		return comicDao.findOne(id);
+	}
+
+	/**是否存在该comicpic信息*/
+	public boolean exsits(ComicPic comicPic) {
+		List<?> list = this.comicPicDao.findByComicIdAndPicUrl(comicPic.getComicId(), comicPic.getPicUrl());
+		if(list != null && list.size() > 0) return true;
+		return false;
+	}
+	
+	public boolean deleteComicPics(Comic comic) {
+		boolean flag = false;
+		try {
+			List<ComicPic> comicPics = this.comicPicDao.findByComicId(comic.getId());
+			this.comicPicDao.delete(comicPics);
+			flag = true;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return flag;
+	}
+
+	/**
+	 * 查询漫画的图片资源路径
+	 * @return
+	 */
+	public List<ComicPic> findComicPicUrls(Comic comic) {
+		List<ComicPic> pics = this.comicPicDao.findByComicId(comic.getId());
+		return pics;
+	}
+
+	public boolean update(Comic comic) {
+		boolean flag = false;
+		try {
+			this.comicDao.saveAndFlush(comic);
+			flag = true;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return flag;
 	}
 }

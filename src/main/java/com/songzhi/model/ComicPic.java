@@ -24,6 +24,9 @@ public class ComicPic {
 	
 	@Column(length=200)
 	private String filepath; //文件路径
+	
+	@Column(length=1)
+	private int flag; 
 
 	public int getId() {
 		return id;
@@ -76,5 +79,13 @@ public class ComicPic {
 
 	public ComicPic() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 }
