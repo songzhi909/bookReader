@@ -6,10 +6,14 @@ import com.songzhi.conf.SpringContent;
 import com.songzhi.model.Catalog;
 import com.songzhi.service.ComicService;
 import com.songzhi.ui.MainController;
+import com.songzhi.ui.websit.WebSitIndexController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,6 +27,7 @@ public class App extends Application {
 
 	private Stage primaryStage;
 	private VBox mainLayout;
+	private ScrollPane contentPane;
 
 	private ComicService service;
 
@@ -52,6 +57,8 @@ public class App extends Application {
 			MainController controller = loader.getController();
 			controller.setApp(this);
 			controller.loadTree();
+			
+			contentPane = controller.getContentPane();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(mainLayout);
@@ -62,6 +69,44 @@ public class App extends Application {
 		}
 	}
 
+	/**
+	 * 显示网站目录
+	 */
+	public void showWebSitIndex() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../ui/websit/WebSitIndex.fxml"));
+
+			Pane pane = loader.load();
+			
+			contentPane.setContent(pane);
+
+			WebSitIndexController controller = loader.getController();
+			controller.setApp(this);
+
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 显示网站漫画信息
+	 */
+	public void showWebSitComic() {
+		
+	}
+	
+	/**
+	 * 显示当前下载列表信息
+	 */
+	public void showDownloadingList() {
+		
+	}
+	
+	
+	
 	/**
 	 * Returns the main stage.
 	 * 

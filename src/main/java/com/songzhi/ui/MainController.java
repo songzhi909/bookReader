@@ -2,7 +2,6 @@ package com.songzhi.ui;
 
 import java.util.List;
 
-import com.songzhi.app.App;
 import com.songzhi.model.Catalog;
 
 import javafx.event.ActionEvent;
@@ -10,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -19,28 +19,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class MainController {
+public class MainController extends BaseController{
 
 	@FXML
 	private AnchorPane catalogTreePane;
+	
 	@FXML
 	private TreeView<Catalog> catalogTree;
-
-	private App app;
+	
+	@FXML
+	private ScrollPane contentPane;
 
 	/**
 	 * The constructor. The constructor is called before the initialize() method.
 	 */
 	public MainController() {
-
-	}
-
-	/**
-	 * Initializes the controller class. This method is automatically called after
-	 * the fxml file has been loaded.
-	 */
-	@FXML
-	private void initialize() {
 
 	}
 
@@ -165,15 +158,7 @@ public class MainController {
 		}
 	}
 
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param app
-	 */
-	public void setApp(App app) {
-		this.app = app;
-
-		// Add observable list data to the table
-		// personTable.setItems(mainApp.getPersonData());
+	public ScrollPane getContentPane() {
+		return contentPane;
 	}
 }
