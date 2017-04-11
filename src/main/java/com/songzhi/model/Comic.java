@@ -30,6 +30,9 @@ public class Comic implements Serializable {
 	
 	@Column(length = 1)
 	private int wid; // 该网站中的ID
+
+	@Column
+	private int catalogId;	//分类
 	
 	@Column(length = 200)
 	private String name; // 漫画名
@@ -42,6 +45,7 @@ public class Comic implements Serializable {
 
 	@Column(length = 1)
 	private int flag; // 下载标识
+	
 
 	public Comic() {
 		// TODO Auto-generated constructor stub
@@ -124,6 +128,14 @@ public class Comic implements Serializable {
 	public String toString() {
 		return "Comic [id=" + id + ", website=" + website + ", wid=" + wid + ", name=" + name + ", photo=" + photo
 		    + ", url=" + url + ", flag=" + flag + "]";
+	}
+
+	public int getCatalogId() {
+		return catalogId;
+	}
+
+	public void setCatalogId(int catalogId) {
+		this.catalogId = catalogId;
 	}
 
 }

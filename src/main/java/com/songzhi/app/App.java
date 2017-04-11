@@ -2,11 +2,15 @@ package com.songzhi.app;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.songzhi.conf.SpringContent;
+import com.songzhi.crawler.ComicCrawler;
 import com.songzhi.model.Catalog;
 import com.songzhi.service.ComicService;
 import com.songzhi.ui.MainController;
-import com.songzhi.ui.websit.WebSitIndexController;
+import com.songzhi.ui.website.WebSiteIndexController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +28,7 @@ import javafx.stage.Stage;
  *
  */
 public class App extends Application {
+	final static Logger log = LoggerFactory.getLogger(App.class);
 
 	private Stage primaryStage;
 	private VBox mainLayout;
@@ -72,19 +77,19 @@ public class App extends Application {
 	/**
 	 * 显示网站目录
 	 */
-	public void showWebSitIndex() {
+	public void showWebSitIndex(final Catalog catalog) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("../ui/websit/WebSitIndex.fxml"));
+			loader.setLocation(App.class.getResource("../ui/website/WebSiteIndex.fxml"));
 
 			Pane pane = loader.load();
 			
 			contentPane.setContent(pane);
 
-			WebSitIndexController controller = loader.getController();
+			WebSiteIndexController controller = loader.getController();
 			controller.setApp(this);
 
-			
+			controller.loadComics(catalog);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

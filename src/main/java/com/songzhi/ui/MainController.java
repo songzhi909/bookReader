@@ -66,12 +66,7 @@ public class MainController extends BaseController{
 
 		catalogTree.setOnMouseClicked(e -> {
 			TreeItem<Catalog> catalog = catalogTree.getSelectionModel().getSelectedItem();
-			System.out.println(catalog);
-			// Node node = e.getPickResult().getIntersectedNode();
-		  // if(node instanceof TreeCell) {
-		  // TreeCell<Catalog> clickCell = (TreeCell<Catalog>) node;
-		  // System.out.println(clickCell.getItem());
-		  // }
+			if(catalog != null) app.showWebSitIndex(catalog.getValue());
 		});
 
 		catalogTree.setCellFactory((TreeView<Catalog> treeView) -> new CatalogTreeCellImpl(treeView));

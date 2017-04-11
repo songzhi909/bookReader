@@ -1,7 +1,5 @@
 package com.songzhi.dao;
 
-import javax.persistence.criteria.Order;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +12,5 @@ public interface ComicDao extends JpaRepository<Comic, Integer> {
 	
 	public Page<Comic> findByFlagOrderByIdAsc(int flag, Pageable pageable);
 	
-	public Page<Comic> findByWebsit(String websit, Order order, Pageable pageable);
+	public Page<Comic> findByCatalogId(int catalogId, Pageable pageable);
 }

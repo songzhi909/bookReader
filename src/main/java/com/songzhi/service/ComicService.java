@@ -42,6 +42,10 @@ public class ComicService {
 		return comicDao.findByFlagOrderByIdAsc(0, new PageRequest(page, size));
 	}
 	
+	public Page<Comic> findComicsByCatalogId(int page, int size, int catalogId) {
+		return this.comicDao.findByCatalogId(catalogId, new PageRequest(page, size,  new Sort(Direction.ASC, "id")));
+	}
+	
 	public String addPic(ComicPic comicPic) {
 		comicPicDao.save(comicPic);
 		return "添加成功！";
