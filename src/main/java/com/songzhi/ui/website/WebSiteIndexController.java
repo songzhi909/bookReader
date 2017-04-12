@@ -12,6 +12,7 @@ import com.songzhi.model.Comic;
 import com.songzhi.ui.BaseController;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -50,7 +51,7 @@ public class WebSiteIndexController extends BaseController {
 			// 当数据不是5的整数，且是最后一行时
 			if (rowIndex == row - 1 && comics.size() % 5 > 0) colnum = comics.size() % 5;
 			for (int columnIndex = 0; columnIndex < colnum; columnIndex++) {
-				log.debug("columnIndex:{}, rowIndex:{}", columnIndex, rowIndex);
+				log.info("columnIndex:{}, rowIndex:{}", columnIndex, rowIndex);
 				
 				Comic comic = comics.get(rowIndex * 5 + columnIndex);
 
@@ -60,11 +61,19 @@ public class WebSiteIndexController extends BaseController {
 				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(100);
 				imageView.setFitHeight(100);
+				
+				imageView.setOnMouseClicked(e -> app.showWebSitComic(comic)); //显示漫画详细
 
 				CheckBox checkBox = new CheckBox(comic.getName());
 				checkBox.setSelected(comic.getFlag() == 1);
+				checkBox.setDisable(false);
 
-				vBox.getChildren().addAll(imageView, checkBox);
+				Image btnImg = new Image(getClass().getResourceAsStream("/images/download.png"));
+				Button button = new Button("",new ImageView(btnImg));
+				
+				button.setOnMouseClicked(e-> app.showComicDownload(comic)); //显示下载信息
+
+				vBox.getChildren().addAll(imageView, checkBox, button);
 				comicGridPane.setPrefHeight(1000);
 				comicGridPane.add(vBox, columnIndex, rowIndex);
 			}

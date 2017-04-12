@@ -58,7 +58,7 @@ public class BaseController {
 	/**
 	 * 初始化后续操作
 	 */
-	private void afterInitialize() {
+	public void afterInitialize() {
 		
 	}
 }

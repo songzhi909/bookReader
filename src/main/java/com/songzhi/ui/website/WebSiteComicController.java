@@ -1,5 +1,13 @@
 package com.songzhi.ui.website;
 
-public class WebSiteComicController {
+import com.songzhi.ui.BaseController;
+
+import javafx.fxml.FXML;
+import javafx.scene.web.WebView;
+
+public class WebSiteComicController extends BaseController {
+	
+	@FXML
+	private WebView webView;
 
 }

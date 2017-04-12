@@ -26,7 +26,7 @@ public class ComicPic {
 	private String filepath; //文件路径
 	
 	@Column(length=1)
-	private int flag; 
+	private int flag; //0:为下载, 1:已下载
 
 	public int getId() {
 		return id;
