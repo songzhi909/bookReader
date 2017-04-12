@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,13 +50,14 @@ public class WebSiteIndexController extends BaseController {
 			// 当数据不是5的整数，且是最后一行时
 			if (rowIndex == row - 1 && comics.size() % 5 > 0) colnum = comics.size() % 5;
 			for (int columnIndex = 0; columnIndex < colnum; columnIndex++) {
-				log.info("columnIndex:{}, rowIndex:{}", columnIndex, rowIndex);
+				log.debug("columnIndex:{}, rowIndex:{}", columnIndex, rowIndex);
 				
 				Comic comic = comics.get(rowIndex * 5 + columnIndex);
 
 				VBox vBox = new VBox();
 
-				ImageView imageView = new ImageView(comic.getPhoto());
+				Image image = new Image(comic.getPhoto(), false);
+				ImageView imageView = new ImageView(image);
 				imageView.setFitWidth(100);
 				imageView.setFitHeight(100);
 
@@ -63,6 +65,7 @@ public class WebSiteIndexController extends BaseController {
 				checkBox.setSelected(comic.getFlag() == 1);
 
 				vBox.getChildren().addAll(imageView, checkBox);
+				comicGridPane.setPrefHeight(1000);
 				comicGridPane.add(vBox, columnIndex, rowIndex);
 			}
 		}
